@@ -1,61 +1,61 @@
-name: Flyway Database Migrations
+# name: Flyway Database Migrations
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'migrations/**'
-      - '.github/workflows/flyway-migrate.yml'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'migrations/**'
-      - '.github/workflows/flyway-migrate.yml'
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'migrations/**'
+#       - '.github/workflows/flyway-migrate.yml'
+#   pull_request:
+#     branches:
+#       - main
+#     paths:
+#       - 'migrations/**'
+#       - '.github/workflows/flyway-migrate.yml'
+#   workflow_dispatch:
 
-env:
-  FLYWAY_VERSION: '10.0.0'
+# env:
+#   FLYWAY_VERSION: '12.6.2'
 
-jobs:
-  migrate:
-    name: Run Flyway Migrations
-    runs-on: ubuntu-latest
+# jobs:
+#   migrate:
+#     name: Run Flyway Migrations
+#     runs-on: ubuntu-latest
     
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      - name: Download Flyway
-        run: |
-          wget -q https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
-          tar -xzf flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
-          export PATH=$PATH:$PWD/flyway-${FLYWAY_VERSION}
-          echo "$PWD/flyway-${FLYWAY_VERSION}" >> $GITHUB_PATH
+#       - name: Download Flyway
+#         run: |
+#           wget -q https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+#           tar -xzf flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+#           export PATH=$PATH:$PWD/flyway-${FLYWAY_VERSION}
+#           echo "$PWD/flyway-${FLYWAY_VERSION}" >> $GITHUB_PATH
 
-      - name: Validate migrations
-        run: |
-          flyway-${FLYWAY_VERSION}/flyway validate \
-            -configFiles=flyway.conf \
-            -url="${{ secrets.DATABASE_URL }}" \
-            -user="${{ secrets.DATABASE_USER }}" \
-            -password="${{ secrets.DATABASE_PASSWORD }}"
+#       - name: Validate migrations
+#         run: |
+#           flyway-${FLYWAY_VERSION}/flyway validate \
+#             -configFiles=flyway.conf \
+#             -url="${{ secrets.DATABASE_URL }}" \
+#             -user="${{ secrets.DATABASE_USER }}" \
+#             -password="${{ secrets.DATABASE_PASSWORD }}"
 
-      - name: Run migrations
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: |
-          flyway-${FLYWAY_VERSION}/flyway migrate \
-            -configFiles=flyway.conf \
-            -url="${{ secrets.DATABASE_URL }}" \
-            -user="${{ secrets.DATABASE_USER }}" \
-            -password="${{ secrets.DATABASE_PASSWORD }}"
+#       - name: Run migrations
+#         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+#         run: |
+#           flyway-${FLYWAY_VERSION}/flyway migrate \
+#             -configFiles=flyway.conf \
+#             -url="${{ secrets.DATABASE_URL }}" \
+#             -user="${{ secrets.DATABASE_USER }}" \
+#             -password="${{ secrets.DATABASE_PASSWORD }}"
 
-      - name: Migration info
-        if: always()
-        run: |
-          flyway-${FLYWAY_VERSION}/flyway info \
-            -configFiles=flyway.conf \
-            -url="${{ secrets.DATABASE_URL }}" \
-            -user="${{ secrets.DATABASE_USER }}" \
-            -password="${{ secrets.DATABASE_PASSWORD }}"
+#       - name: Migration info
+#         if: always()
+#         run: |
+#           flyway-${FLYWAY_VERSION}/flyway info \
+#             -configFiles=flyway.conf \
+#             -url="${{ secrets.DATABASE_URL }}" \
+#             -user="${{ secrets.DATABASE_USER }}" \
+#             -password="${{ secrets.DATABASE_PASSWORD }}"
