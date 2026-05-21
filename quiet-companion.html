@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiet Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage:       #4A7C6F;
+    --sage-mid:   #6A9E90;
+    --sage-light: #B8D8D2;
+    --sage-pale:  #EBF4F2;
+    --sage-deep:  #2C5046;
+    --stone:      #8C8880;
+    --stone-light:#E8E5E0;
+    --stone-pale: #F5F3F0;
+    --ink:        #1C1C1A;
+    --ink-mid:    #4A4A47;
+    --ink-soft:   #7A7A76;
+    --cream:      #FDFCFA;
+    --warm-white: #F9F7F4;
+    --border:     rgba(28,28,26,0.10);
+    --border-mid: rgba(28,28,26,0.18);
+    --radius-sm:  6px;
+    --radius-md:  10px;
+    --radius-lg:  14px;
+    --radius-xl:  20px;
+    --shadow-xs:  0 1px 3px rgba(0,0,0,0.06);
+    --shadow-sm:  0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md:  0 4px 20px rgba(0,0,0,0.10);
+
+    /* Panel backgrounds */
+    --nav-bg:        #3A3D42;
+    --nav-border:    rgba(255,255,255,0.08);
+    --nav-text:      #B8BBC0;
+    --nav-text-hover:#ECEEF0;
+    --nav-active-bg: rgba(255,255,255,0.10);
+
+    --left-bg:       #EDF5F3;
+    --left-bg-card:  #FFFFFF;
+    --left-accent:   #4A7C6F;
+    --left-border:   rgba(74,124,111,0.14);
+    --left-head-bg:  #E0EEE9;
+
+    --right-bg:      #1E2535;
+    --right-bg-card: #273045;
+    --right-bg-ele:  #2E3A52;
+    --right-border:  rgba(255,255,255,0.08);
+    --right-head-bg: #19202E;
+    --right-text:    #D4DAE8;
+    --right-text-soft:#8A95AE;
+    --right-accent:  #5DCAA5;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── APP SHELL ─────────────────────────────────────────── */
+  .app-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── TOP BAR ───────────────────────────────────────────── */
+  .topbar {
+    height: 56px;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 0;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-right: 28px;
+    flex-shrink: 0;
+  }
+
+  .brand-mark {
+    width: 30px; height: 30px;
+    background: var(--sage);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .brand-mark i { color: #fff; font-size: 16px; }
+
+  .brand-name {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ECEEF0;
+    letter-spacing: -0.01em;
+  }
+
+  .brand-name em {
+    font-style: italic;
+    color: var(--sage-light);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .nav-link {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--nav-text);
+    padding: 5px 13px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .nav-link i { font-size: 15px; }
+  .nav-link:hover { background: var(--nav-active-bg); color: var(--nav-text-hover); }
+
+  .nav-link.active {
+    background: rgba(74,124,111,0.28);
+    color: var(--sage-light);
+    font-weight: 500;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .live-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(74,124,111,0.22);
+    color: var(--sage-light);
+    font-size: 11px; font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(184,216,210,0.25);
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    background: var(--sage-mid);
+    border-radius: 50%;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.82); }
+  }
+
+  .avatar-btn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #ECEEF0;
+    font-size: 11px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+
+  /* ── MAIN GRID ─────────────────────────────────────────── */
+  .workspace {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .col-divider { background: rgba(0,0,0,0.18); }
+
+  /* ── PANEL SHARED ──────────────────────────────────────── */
+  .panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .panel-head {
+    padding: 13px 18px 11px;
+    border-bottom: 1px solid var(--left-border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+    background: var(--left-head-bg);
+  }
+
+  .panel-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sage-deep);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .panel-title i { font-size: 13px; }
+
+  .status-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 20px;
+  }
+
+  .tag-rec  { background: #FDF0EE; color: #8B3A2A; border: 1px solid #F2C4B8; }
+  .tag-idle { background: var(--stone-pale); color: var(--stone); border: 1px solid var(--border); }
+  .tag-sage { background: var(--sage-pale); color: var(--sage-deep); border: 1px solid var(--sage-light); }
+
+  /* ── LEFT: LISTENING ───────────────────────────────────── */
+  .left-panel { background: var(--left-bg); }
+
+  .mic-zone {
+    padding: 22px 18px 16px;
+    border-bottom: 1px solid var(--left-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    background: var(--left-bg);
+  }
+
+  .mic-halo {
+    position: relative;
+    width: 78px; height: 78px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .halo-ring {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--sage);
+    animation: halo 2.4s ease-out infinite;
+  }
+
+  .halo-ring:nth-child(2) {
+    inset: 9px;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes halo {
+    0%   { transform: scale(0.88); opacity: 0.55; }
+    100% { transform: scale(1.12); opacity: 0; }
+  }
+
+  .mic-core {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--sage);
+    display: flex; align-items: center; justify-content: center;
+    border: none;
+    cursor: pointer;
+    position: relative; z-index: 1;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .mic-core:hover { background: var(--sage-deep); transform: scale(1.04); }
+  .mic-core i { color: #fff; font-size: 22px; }
+
+  .waveform {
+    display: flex; align-items: flex-end; gap: 3px;
+    height: 30px; width: 100%; max-width: 190px;
+  }
+
+  .wbar {
+    flex: 1; min-height: 3px;
+    background: var(--sage-mid);
+    border-radius: 2px;
+    animation: wv 0.9s ease-in-out infinite;
+  }
+
+  @keyframes wv {
+    0%, 100% { height: 3px; }
+    50% { height: var(--h, 14px); }
+  }
+
+  .wbar:nth-child(1)  { animation-delay: 0.00s; --h: 7px; }
+  .wbar:nth-child(2)  { animation-delay: 0.10s; --h: 20px; }
+  .wbar:nth-child(3)  { animation-delay: 0.20s; --h: 13px; }
+  .wbar:nth-child(4)  { animation-delay: 0.07s; --h: 25px; }
+  .wbar:nth-child(5)  { animation-delay: 0.17s; --h: 9px; }
+  .wbar:nth-child(6)  { animation-delay: 0.03s; --h: 22px; }
+  .wbar:nth-child(7)  { animation-delay: 0.13s; --h: 18px; }
+  .wbar:nth-child(8)  { animation-delay: 0.22s; --h: 6px; }
+  .wbar:nth-child(9)  { animation-delay: 0.06s; --h: 16px; }
+  .wbar:nth-child(10) { animation-delay: 0.15s; --h: 24px; }
+  .wbar:nth-child(11) { animation-delay: 0.09s; --h: 11px; }
+  .wbar:nth-child(12) { animation-delay: 0.19s; --h: 17px; }
+
+  .lang-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--ink-soft);
+  }
+
+  .lang-select {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-mid);
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* TRANSCRIPT SCROLL */
+  .transcript-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--left-bg);
+  }
+
+  .t-block { display: flex; flex-direction: column; gap: 3px; }
+
+  .t-ts {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--sage-mid);
+    letter-spacing: 0.04em;
+  }
+
+  .t-text {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--left-bg-card);
+    padding: 8px 12px;
+    border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+    border-left: 2px solid var(--sage-mid);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .t-text.active {
+    border-left-color: #C0704A;
+    background: #FDF0EE;
+    color: #3D1A10;
+  }
+
+  .blink-cursor {
+    display: inline-block;
+    width: 2px; height: 12px;
+    background: #C0704A;
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* TRANSCRIPT FOOTER */
+  .t-footer {
+    padding: 11px 18px;
+    border-top: 1px solid var(--left-border);
+    display: flex; gap: 7px;
+    flex-shrink: 0;
+    background: var(--left-head-bg);
+  }
+
+  .ctrl-btn {
+    flex: 1;
+    padding: 6px 8px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid rgba(74,124,111,0.22);
+    background: var(--left-bg-card);
+    color: var(--sage-deep);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    transition: all 0.14s;
+  }
+
+  .ctrl-btn:hover { background: var(--sage-pale); color: var(--sage-deep); border-color: var(--sage-mid); }
+  .ctrl-btn i { font-size: 13px; }
+
+  /* ── RIGHT: OUTPUT ─────────────────────────────────────── */
+  .right-panel { background: var(--right-bg); }
+
+  .output-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 12px;
+    background: var(--right-bg);
+  }
+
+  .out-card {
+    background: var(--right-bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--right-border);
+    overflow: hidden;
+  }
+
+  .out-card-head {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--right-border);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--right-text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    display: flex; align-items: center; gap: 6px;
+    background: var(--right-head-bg);
+  }
+
+  .out-card-head i { font-size: 13px; color: var(--right-accent); }
+
+  .out-card-body { padding: 13px 14px; }
+
+  /* sentence */
+  .out-sentence { font-size: 14px; line-height: 1.7; color: var(--right-text); }
+  .out-sentence strong { color: var(--right-accent); font-weight: 500; }
+
+  /* chart */
+  .bar-chart { display: flex; flex-direction: column; gap: 9px; }
+
+  .bar-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+
+  .bar-label { width: 70px; color: var(--right-text-soft); font-size: 11px; flex-shrink: 0; }
+
+  .bar-track {
+    flex: 1; height: 8px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px; overflow: hidden;
+  }
+
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .bar-val { width: 36px; text-align: right; font-weight: 500; font-size: 11px; color: var(--right-text); }
+
+  /* attachment */
+  .doc-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 11px;
+    background: var(--right-bg-ele);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--right-border);
+    cursor: pointer;
+    transition: border-color 0.14s, background 0.14s;
+  }
+
+  .doc-row:hover { border-color: rgba(93,202,165,0.35); background: rgba(93,202,165,0.06); }
+
+  .doc-icon-box {
+    width: 34px; height: 34px;
+    background: rgba(93,202,165,0.12);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .doc-icon-box i { color: var(--right-accent); font-size: 16px; }
+  .doc-name { font-size: 13px; font-weight: 500; color: var(--right-text); }
+  .doc-meta { font-size: 11px; color: var(--right-text-soft); }
+  .doc-dl { margin-left: auto; color: var(--right-text-soft); font-size: 16px; }
+
+  /* question */
+  .q-text { font-size: 14px; color: var(--right-text); line-height: 1.65; margin-bottom: 10px; }
+
+  .q-opts { display: flex; flex-direction: column; gap: 6px; }
+
+  .q-opt {
+    padding: 7px 12px;
+    border: 1px solid var(--right-border);
+    border-radius: var(--radius-md);
+    font-size: 13px; color: var(--right-text-soft);
+    cursor: pointer;
+    background: var(--right-bg-ele);
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    display: flex; align-items: center; gap: 8px;
+    transition: all 0.14s;
+  }
+
+  .q-opt:hover { border-color: rgba(93,202,165,0.4); background: rgba(93,202,165,0.08); color: var(--right-accent); }
+  .q-opt i { font-size: 13px; flex-shrink: 0; }
+
+  .q-input-row { display: flex; gap: 6px; margin-top: 10px; }
+
+  .q-input {
+    flex: 1;
+    padding: 7px 11px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--right-border);
+    border-radius: var(--radius-md);
+    background: var(--right-bg-ele);
+    color: var(--right-text);
+    outline: none;
+    transition: border-color 0.14s;
+  }
+
+  .q-input::placeholder { color: var(--right-text-soft); }
+  .q-input:focus { border-color: rgba(93,202,165,0.45); }
+
+  .q-send {
+    padding: 7px 13px;
+    background: var(--right-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    color: #0A2018;
+    cursor: pointer;
+    display: flex; align-items: center;
+    transition: background 0.14s;
+  }
+
+  .q-send:hover { background: #7FDBB8; }
+  .q-send i { font-size: 14px; }
+
+  /* output footer */
+  .out-footer {
+    padding: 11px 18px;
+    border-top: 1px solid var(--right-border);
+    display: flex; align-items: center; gap: 8px;
+    background: var(--right-head-bg);
+    flex-shrink: 0;
+  }
+
+  .out-footer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--right-text-soft);
+    margin-right: auto;
+    letter-spacing: 0.03em;
+  }
+
+  .out-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--right-border);
+    background: var(--right-bg-ele);
+    color: var(--right-text-soft);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+    transition: all 0.14s;
+  }
+
+  .out-btn:hover { background: rgba(255,255,255,0.08); color: var(--right-text); }
+  .out-btn i { font-size: 13px; }
+
+  .out-btn.primary {
+    background: var(--right-accent);
+    color: #0A2018;
+    border-color: transparent;
+    font-weight: 500;
+  }
+
+  .out-btn.primary:hover { background: #7FDBB8; }
+
+  /* ── HELP PANEL (slide-in overlay) ─────────────────────── */
+  .help-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(28,28,26,0.35);
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+
+  .help-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .help-drawer {
+    width: 360px;
+    max-width: 92vw;
+    height: 100%;
+    background: var(--cream);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: var(--shadow-md);
+  }
+
+  .help-overlay.open .help-drawer { transform: translateX(0); }
+
+  .help-top {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .help-heading {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+    display: flex; align-items: center; gap: 9px;
+  }
+
+  .help-heading i { font-size: 18px; color: var(--sage); }
+
+  .help-close {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-mid);
+    background: var(--warm-white);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--stone);
+    font-size: 16px;
+    transition: all 0.14s;
+  }
+
+  .help-close:hover { background: var(--stone-pale); color: var(--ink); }
+
+  .help-search {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap i {
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: var(--stone);
+    pointer-events: none;
+  }
+
+  .help-search-input {
+    width: 100%;
+    padding: 7px 11px 7px 32px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-md);
+    background: var(--warm-white);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.14s;
+  }
+
+  .help-search-input:focus { border-color: var(--sage-mid); }
+
+  .help-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .help-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--stone);
+    padding: 10px 0 4px;
+  }
+
+  .help-section-label:first-child { padding-top: 0; }
+
+  .help-item {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--warm-white);
+    overflow: hidden;
+    transition: border-color 0.14s;
+  }
+
+  .help-item:hover { border-color: var(--sage-light); }
+
+  .help-q {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    user-select: none;
+  }
+
+  .help-q i.chevron {
+    font-size: 14px;
+    color: var(--stone);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .help-item.expanded .chevron { transform: rotate(180deg); }
+
+  .help-ans {
+    display: none;
+    padding: 0 14px 12px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+
+  .help-ans.show { display: block; }
+
+  .help-tip {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  .help-tip i { font-size: 15px; color: var(--sage); flex-shrink: 0; margin-top: 1px; }
+
+  .shortcut-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .shortcut-item {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 8px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .kb {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--stone-pale);
+    color: var(--ink);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-mid);
+    flex-shrink: 0;
+  }
+
+  .help-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex; gap: 8px;
+  }
+
+  .hf-btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    background: var(--warm-white);
+    color: var(--ink-soft);
+    transition: all 0.14s;
+  }
+
+  .hf-btn:hover { background: var(--stone-pale); color: var(--ink); }
+  .hf-btn.sage { background: var(--sage); color: #fff; border-color: transparent; }
+  .hf-btn.sage:hover { background: var(--sage-deep); }
+  .hf-btn i { font-size: 14px; }
+
+  /* ── SCROLLBARS ─────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--stone-light); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ─── TOP BAR ─────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark"><i class="ti ti-leaf"></i></div>
+      <span class="brand-name">Quiet <em>Companion</em></span>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-link active"><i class="ti ti-microphone"></i> Listen</button>
+      <button class="nav-link"><i class="ti ti-history"></i> Sessions</button>
+      <button class="nav-link"><i class="ti ti-chart-bar"></i> Analytics</button>
+      <button class="nav-link"><i class="ti ti-books"></i> Knowledge</button>
+      <button class="nav-link"><i class="ti ti-settings"></i> Settings</button>
+      <button class="nav-link" id="help-trigger" onclick="openHelp()"><i class="ti ti-help-circle"></i> Help</button>
+    </nav>
+    <div class="topbar-right">
+      <div class="live-pill"><div class="live-dot"></div> Live</div>
+      <button class="avatar-btn" title="User profile">JD</button>
+    </div>
+  </header>
+
+  <!-- ─── TWO-COLUMN WORKSPACE ────────────────────────────── -->
+  <div class="workspace">
+
+    <!-- LEFT: LISTENING AGENT -->
+    <section class="panel left-panel" aria-label="Listening agent">
+
+      <div class="panel-head">
+        <div class="panel-title"><i class="ti ti-ear"></i> Listening agent</div>
+        <span class="status-tag tag-rec">● recording</span>
+      </div>
+
+      <!-- Mic + waveform -->
+      <div class="mic-zone">
+        <div class="mic-halo">
+          <div class="halo-ring"></div>
+          <div class="halo-ring"></div>
+          <button class="mic-core" title="Stop recording"><i class="ti ti-microphone"></i></button>
+        </div>
+
+        <div class="waveform" aria-hidden="true">
+          <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+          <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+          <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+          <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+        </div>
+
+        <div class="lang-row">
+          <i class="ti ti-language" aria-hidden="true" style="font-size:14px;color:var(--stone)"></i>
+          Language
+          <select class="lang-select" aria-label="Select language">
+            <option>English (US)</option>
+            <option>French</option>
+            <option>Spanish</option>
+            <option>Arabic</option>
+            <option>Mandarin</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Transcript -->
+      <div class="transcript-scroll" role="log" aria-live="polite" aria-label="Voice transcript">
+        <div class="t-block">
+          <span class="t-ts">0:12</span>
+          <div class="t-text">Show me last quarter's revenue broken down by product line.</div>
+        </div>
+        <div class="t-block">
+          <span class="t-ts">0:28</span>
+          <div class="t-text">And attach the full sales report from October as well.</div>
+        </div>
+        <div class="t-block">
+          <span class="t-ts">0:41 · now</span>
+          <div class="t-text active">What was the best performing region in terms of<span class="blink-cursor" aria-hidden="true"></span></div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="t-footer">
+        <button class="ctrl-btn"><i class="ti ti-player-pause"></i> Pause</button>
+        <button class="ctrl-btn"><i class="ti ti-copy"></i> Copy</button>
+        <button class="ctrl-btn"><i class="ti ti-trash"></i> Clear</button>
+      </div>
+
+    </section>
+
+    <div class="col-divider" role="separator"></div>
+
+    <!-- RIGHT: OUTPUT -->
+    <section class="panel right-panel" aria-label="Output panel">
+
+      <div class="panel-head" style="background:var(--right-head-bg);border-bottom:1px solid var(--right-border);">
+        <div class="panel-title" style="color:var(--right-text-soft);"><i class="ti ti-sparkles" style="color:var(--right-accent)"></i> Output</div>
+        <span class="status-tag" style="background:rgba(93,202,165,0.12);color:var(--right-accent);border:1px solid rgba(93,202,165,0.25);">4 results</span>
+      </div>
+
+      <div class="output-scroll">
+
+        <!-- 1: Text summary -->
+        <div class="out-card">
+          <div class="out-card-head"><i class="ti ti-message-2"></i> Summary</div>
+          <div class="out-card-body">
+            <p class="out-sentence">
+              Total revenue last quarter was <strong>$4.2M</strong>, up <strong>18% year-over-year</strong>.
+              Enterprise software led at $1.8M, followed by professional services at $1.1M and hardware at $820K.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2: Bar chart -->
+        <div class="out-card">
+          <div class="out-card-head"><i class="ti ti-chart-bar"></i> Revenue by product line</div>
+          <div class="out-card-body">
+            <div class="bar-chart" role="img" aria-label="Bar chart of revenue by product line">
+              <div class="bar-row">
+                <span class="bar-label">Enterprise</span>
+                <div class="bar-track"><div class="bar-fill" style="width:86%;background:#5DCAA5;"></div></div>
+                <span class="bar-val">$1.8M</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Services</span>
+                <div class="bar-track"><div class="bar-fill" style="width:52%;background:#4AA88C;"></div></div>
+                <span class="bar-val">$1.1M</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Hardware</span>
+                <div class="bar-track"><div class="bar-fill" style="width:39%;background:#368870;"></div></div>
+                <span class="bar-val">$820K</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Support</span>
+                <div class="bar-track"><div class="bar-fill" style="width:23%;background:#256856;"></div></div>
+                <span class="bar-val">$480K</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: Document attachment -->
+        <div class="out-card">
+          <div class="out-card-head"><i class="ti ti-paperclip"></i> Attached document</div>
+          <div class="out-card-body">
+            <div class="doc-row" role="button" tabindex="0" aria-label="Download Sales Report October 2024">
+              <div class="doc-icon-box"><i class="ti ti-file-type-pdf"></i></div>
+              <div>
+                <div class="doc-name">Sales_Report_Oct_2024.pdf</div>
+                <div class="doc-meta">PDF · 2.4 MB · Generated just now</div>
+              </div>
+              <i class="ti ti-download doc-dl"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4: Question back to user -->
+        <div class="out-card">
+          <div class="out-card-head"><i class="ti ti-help-circle"></i> Clarification needed</div>
+          <div class="out-card-body">
+            <p class="q-text">Which region would you like to compare performance for — or should I show all regions ranked?</p>
+            <div class="q-opts" role="group" aria-label="Region options">
+              <button class="q-opt"><i class="ti ti-map-pin"></i> North America</button>
+              <button class="q-opt"><i class="ti ti-map-pin"></i> EMEA</button>
+              <button class="q-opt"><i class="ti ti-map-pin"></i> APAC</button>
+              <button class="q-opt"><i class="ti ti-list"></i> Show all ranked</button>
+            </div>
+            <div class="q-input-row">
+              <input class="q-input" type="text" placeholder="or type a specific region…" aria-label="Type a specific region" />
+              <button class="q-send" aria-label="Send answer"><i class="ti ti-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="out-footer">
+        <span class="out-footer-label">4 output blocks</span>
+        <button class="out-btn"><i class="ti ti-copy"></i> Copy</button>
+        <button class="out-btn"><i class="ti ti-share"></i> Share</button>
+        <button class="out-btn primary"><i class="ti ti-download"></i> Export</button>
+      </div>
+
+    </section>
+
+  </div><!-- /workspace -->
+
+</div><!-- /app-shell -->
+
+
+<!-- ─── HELP DRAWER ─────────────────────────────────────────── -->
+<div class="help-overlay" id="help-overlay" role="dialog" aria-modal="true" aria-label="Help center" onclick="closeHelpOnBg(event)">
+  <aside class="help-drawer" id="help-drawer">
+
+    <div class="help-top">
+      <div class="help-heading"><i class="ti ti-lifebuoy"></i> Help center</div>
+      <button class="help-close" onclick="closeHelp()" aria-label="Close help"><i class="ti ti-x"></i></button>
+    </div>
+
+    <div class="help-search">
+      <div class="search-wrap">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <input class="help-search-input" type="search" placeholder="Search help articles…" aria-label="Search help" />
+      </div>
+    </div>
+
+    <div class="help-body">
+
+      <!-- Getting started -->
+      <div class="help-section-label">Getting started</div>
+
+      <div class="help-item" onclick="toggleItem(this)">
+        <div class="help-q">
+          How do I start a listening session?
+          <i class="ti ti-chevron-down chevron"></i>
+        </div>
+        <div class="help-ans">
+          Press the green microphone button in the left panel to begin recording. You'll see the waveform animate and the status badge change to "recording". Speak naturally — transcription happens in real time and appears below the mic.
+        </div>
+      </div>
+
+      <div class="help-item" onclick="toggleItem(this)">
+        <div class="help-q">
+          What languages are supported?
+          <i class="ti ti-chevron-down chevron"></i>
+        </div>
+        <div class="help-ans">
+          Quiet Companion currently supports English (US), French, Spanish, Arabic, and Mandarin. More languages are added regularly. Use the language dropdown below the waveform to switch mid-session.
+        </div>
+      </div>
+
+      <div class="help-item" onclick="toggleItem(this)">
+        <div class="help-q">
+          How does the output panel work?
+          <i class="ti ti-chevron-down chevron"></i>
+        </div>
+        <div class="help-ans">
+          After your voice query is processed, responses appear in the right panel as cards. Each card represents one result type — a text summary, a chart, a document attachment, or a clarifying question. You can scroll through results, copy individual cards, or export all results at once.
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div class="help-section-label">Tips for better results</div>
+
+      <div class="help-tip">
+        <i class="ti ti-bulb"></i>
+        Speak at a steady pace and avoid covering the microphone. Quiet Companion works best in low-noise environments.
+      </div>
+
+      <div class="help-tip">
+        <i class="ti ti-bulb"></i>
+        Ask one focused question at a time. For complex queries, pause between parts to let the model process each step.
+      </div>
+
+      <div class="help-tip">
+        <i class="ti ti-bulb"></i>
+        Say "attach" or "show me the document" to have the companion automatically pull relevant files into the output panel.
+      </div>
+
+      <!-- Keyboard shortcuts -->
+      <div class="help-section-label">Keyboard shortcuts</div>
+
+      <div class="shortcut-grid">
+        <div class="shortcut-item">Start recording <span class="kb">Space</span></div>
+        <div class="shortcut-item">Pause <span class="kb">P</span></div>
+        <div class="shortcut-item">Clear transcript <span class="kb">⌘ K</span></div>
+        <div class="shortcut-item">Copy all <span class="kb">⌘ C</span></div>
+        <div class="shortcut-item">Export output <span class="kb">⌘ E</span></div>
+        <div class="shortcut-item">Open help <span class="kb">?</span></div>
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="help-section-label">Troubleshooting</div>
+
+      <div class="help-item" onclick="toggleItem(this)">
+        <div class="help-q">
+          Microphone not detected
+          <i class="ti ti-chevron-down chevron"></i>
+        </div>
+        <div class="help-ans">
+          Check your browser's microphone permissions (usually in the address bar). Make sure no other application is using the mic exclusively. Refreshing the page often resolves this.
+        </div>
+      </div>
+
+      <div class="help-item" onclick="toggleItem(this)">
+        <div class="help-q">
+          Transcription seems inaccurate
+          <i class="ti ti-chevron-down chevron"></i>
+        </div>
+        <div class="help-ans">
+          Ensure the correct language is selected. Try speaking closer to your microphone and reducing background noise. If accuracy is still low, switch to a wired headset for better capture quality.
+        </div>
+      </div>
+
+      <div class="help-item" onclick="toggleItem(this)">
+        <div class="help-q">
+          Output cards not loading
+          <i class="ti ti-chevron-down chevron"></i>
+        </div>
+        <div class="help-ans">
+          Check your internet connection. If cards appear blank, try refreshing the session from the Sessions page. Large document attachments may take a few extra seconds to generate.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="help-footer">
+      <button class="hf-btn"><i class="ti ti-message-circle"></i> Contact support</button>
+      <button class="hf-btn sage"><i class="ti ti-external-link"></i> Full docs</button>
+    </div>
+
+  </aside>
+</div>
+
+
+<script>
+  function openHelp() {
+    document.getElementById('help-overlay').classList.add('open');
+  }
+
+  function closeHelp() {
+    document.getElementById('help-overlay').classList.remove('open');
+  }
+
+  function closeHelpOnBg(e) {
+    if (e.target === document.getElementById('help-overlay')) closeHelp();
+  }
+
+  function toggleItem(el) {
+    const ans = el.querySelector('.help-ans');
+    const isOpen = el.classList.contains('expanded');
+    document.querySelectorAll('.help-item.expanded').forEach(item => {
+      item.classList.remove('expanded');
+      item.querySelector('.help-ans').classList.remove('show');
+    });
+    if (!isOpen) {
+      el.classList.add('expanded');
+      ans.classList.add('show');
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === '?' && !e.ctrlKey && !e.metaKey) openHelp();
+    if (e.key === 'Escape') closeHelp();
+  });
+</script>
+
+</body>
+</html>
