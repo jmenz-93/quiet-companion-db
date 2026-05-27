@@ -1,1 +1,1 @@
-CREATE SCHEMA IF NOT EXISTS railway.quiet_companion;
+CREATE SCHEMA IF NOT EXISTS quiet_companion;
