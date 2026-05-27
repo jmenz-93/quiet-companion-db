@@ -86,7 +86,7 @@ CREATE TABLE trades (
     account_type VARCHAR(50),
     trade_date DATE,
     settlement_date DATE,
-    action VARCHAR(50),
+    action VARCHAR(50), --noqa
     ticker VARCHAR(20),
     security_name VARCHAR(255),
     asset_class VARCHAR(100),
