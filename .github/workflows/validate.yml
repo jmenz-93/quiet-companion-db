@@ -1,0 +1,31 @@
+name: Code Quality
+
+on:
+  workflow_call:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint SQL with SQLFluff
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install SQLFluff
+        run: pip install sqlfluff
+
+      - name: Run SQLFluff lint
+        run: sqlfluff lint migrations/
+
+      - name: Run SQLFluff fix (dry-run)
+        run: sqlfluff fix migrations/ --dry-run
