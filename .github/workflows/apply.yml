@@ -21,5 +21,9 @@ jobs:
 
       - name: Run Flyway migrations
         uses: docker://flyway/flyway:10
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         with:
-          args: -url=${{ secrets.DB_URL }} -user=${{ secrets.DB_USER }} -password=${{ secrets.DB_PASSWORD }} -locations=filesystem:./migrations migrate
+          args: migrate
