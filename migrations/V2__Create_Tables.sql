@@ -1,4 +1,4 @@
-CREATE TABLE accounts (
+CREATE TABLE quiet_companion.accounts (
     account_number VARCHAR(50),
     ssn_primary VARCHAR(20),
     account_type VARCHAR(50),
@@ -26,7 +26,7 @@ CREATE TABLE accounts (
     esg_preference BOOLEAN
 );
 
-CREATE TABLE addresses (
+CREATE TABLE quiet_companion.addresses (
     account_number VARCHAR(50),
     ssn VARCHAR(20),
     street_address VARCHAR(255),
@@ -36,7 +36,7 @@ CREATE TABLE addresses (
     country VARCHAR(50)
 );
 
-CREATE TABLE clients (
+CREATE TABLE quiet_companion.clients (
     account_number VARCHAR(50),
     ssn VARCHAR(20),
     first_name VARCHAR(100),
@@ -63,7 +63,7 @@ CREATE TABLE clients (
     communication_language VARCHAR(50)
 );
 
-CREATE TABLE positions (
+CREATE TABLE quiet_companion.positions (
     account_number VARCHAR(50),
     ssn VARCHAR(20),
     account_type VARCHAR(50),
@@ -80,7 +80,7 @@ CREATE TABLE positions (
     as_of_date DATE
 );
 
-CREATE TABLE trades (
+CREATE TABLE quiet_companion.trades (
     account_number VARCHAR(50),
     ssn VARCHAR(20),
     account_type VARCHAR(50),
