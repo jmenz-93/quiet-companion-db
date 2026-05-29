@@ -18,6 +18,8 @@ clean-targets:
 models:
   quiet_companion:
     +materialized: view
+  elementary:
+    +schema: "{{ target.schema }}"
 
 seeds:
   quiet_companion:
