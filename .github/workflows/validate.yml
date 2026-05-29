@@ -34,7 +34,7 @@ jobs:
         run: sqlfluff lint migrations/
 
       - name: Verify dbt dependencies
-        run: dbt deps
+        run: dbt deps --profiles-dir .
 
       - name: Parse dbt project
-        run: dbt parse
+        run: dbt parse --profiles-dir .
