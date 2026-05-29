@@ -1,18 +1,18 @@
 name: Code Quality
 
 on:
+  push:
+    branches-ignore:
+      - main  # Runs immediately on any branch push, but ignores merges into main
   workflow_call:
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  lint:
-    name: Lint SQL with SQLFluff
+  lint-and-dbt:
+    name: Lint and Compile Code
     runs-on: ubuntu-latest
     
     steps:
@@ -24,8 +24,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install SQLFluff
-        run: pip install sqlfluff
+      - name: Install SQLFluff and dbt
+        run: pip install sqlfluff dbt-postgres
 
       - name: Run SQLFluff lint
         run: sqlfluff lint migrations/
+
+      - name: Verify dbt dependencies
+        run: dbt deps
+
+      - name: Compile dbt models
+        run: dbt compile

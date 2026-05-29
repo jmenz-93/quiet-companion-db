@@ -8,6 +8,10 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  DB_HOST: ${{ secrets.DB_HOST }}
+  DB_USER: ${{ secrets.DB_USER }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  DB_NAME: ${{ secrets.DB_NAME }}
 
 jobs:
   migrate:
@@ -22,7 +26,38 @@ jobs:
         uses: docker://flyway/flyway:12.6.2
         env:
           DB_URL: ${{ secrets.DB_URL }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         with:
           args: migrate
+
+  dbt-build:
+    name: Build Models and Test Data
+    needs: migrate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt and Elementary
+        run: |
+          pip install dbt-postgres
+          pip install 'elementary-data[postgres]'
+
+      - name: Install dbt dependencies
+        run: dbt deps
+
+      - name: Build dbt project
+        run: dbt build --target prod
+
+      - name: Generate and Send Elementary Report
+        if: always()
+        run: |
+          edr send-report \
+            --slack-token ${{ secrets.SLACK_TOKEN }} \
+            --slack-channel-name ${{ secrets.SLACK_CHANNEL_NAME }}
+
