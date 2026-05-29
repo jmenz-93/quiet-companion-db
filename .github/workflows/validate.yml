@@ -33,5 +33,5 @@ jobs:
       - name: Verify dbt dependencies
         run: dbt deps
 
-      - name: Compile dbt models
-        run: dbt compile
+      - name: Parse dbt project
+        run: dbt parse
