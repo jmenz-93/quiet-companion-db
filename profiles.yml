@@ -10,3 +10,16 @@ quiet_companion:
       dbname: "{{ env_var('DB_NAME', 'quiet_companion') }}"
       schema: quiet_companion
       threads: 4
+
+elementary:
+  target: prod
+  outputs:
+    prod:
+      type: postgres
+      host: "{{ env_var('DB_HOST', 'localhost') }}"
+      user: "{{ env_var('DB_USER', 'postgres') }}"
+      password: "{{ env_var('DB_PASSWORD', 'postgres') }}"
+      port: "{{ env_var('DB_PORT', '5432') | int }}"
+      dbname: "{{ env_var('DB_NAME', 'quiet_companion') }}"
+      schema: quiet_companion
+      threads: 4

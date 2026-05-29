@@ -19,4 +19,7 @@ models:
   quiet_companion:
     +materialized: view
 
-# seeds:
+seeds:
+  quiet_companion:
+    schema: quiet_companion_seeds
+

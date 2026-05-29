@@ -1,4 +1,4 @@
-Account Number,SSN,Account Type,Ticker,Security Name,Asset Class,Shares / Units,Price ($),Market Value ($),Cost Basis ($),Unrealized Gain/Loss ($),Unrealized Gain/Loss (%),% of Account,As Of Date
+Account Number,SSN,Account Type,Ticker,Security Name,Asset Class,Shares / Units,Price,Market Value,Cost Basis,Unrealized Gain Loss,Unrealized Gain Loss,Percent of Account,As Of Date
 ACC-95822412,680-50-4483,Trust Account,CARG,CarGurus Inc,Equity,159.4256,21.4,3411.71,3139.36,272.35,8.68,0.16,2025-05-01
 ACC-95822412,680-50-4483,Trust Account,TSLA,Tesla Inc,Equity,11.864,172.6,2047.73,1998.47,49.26,2.46,0.1,2025-05-01
 ACC-95822412,680-50-4483,Trust Account,ARLO,Arlo Technologies,Equity,417.1113,12.8,5339.02,5904.42,-565.4,-9.58,0.26,2025-05-01
