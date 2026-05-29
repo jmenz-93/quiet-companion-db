@@ -56,7 +56,9 @@ jobs:
         run: dbt deps --profiles-dir .
 
       - name: Build dbt project
-        run: dbt build --target prod --profiles-dir .
+        run: |
+          dbt run --select elementary --target prod --profiles-dir .
+          dbt build --target prod --profiles-dir .
 
       - name: Generate and Send Elementary Report
         if: always()
