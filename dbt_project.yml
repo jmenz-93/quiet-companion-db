@@ -22,4 +22,3 @@ models:
 seeds:
   quiet_companion:
     schema: quiet_companion_seeds
-
