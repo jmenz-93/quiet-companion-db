@@ -18,9 +18,15 @@ clean-targets:
 models:
   quiet_companion:
     +materialized: view
+    raw:
+      +schema: raw
+    typ:
+      +schema: typ
+    cls:
+      +schema: cls
   elementary:
-    +schema: "{{ target.schema }}"
+    +schema: elementary
 
 seeds:
   quiet_companion:
-    schema: quiet_companion_seeds
+    schema: seeds
