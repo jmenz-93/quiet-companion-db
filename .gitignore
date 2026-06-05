@@ -1,0 +1,7 @@
+target
+output
+edr_target
+logs
+.venv
+.env
+.DS_Store

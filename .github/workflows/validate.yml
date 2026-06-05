@@ -40,14 +40,6 @@ jobs:
 
       - name: Verify dbt dependencies
         run: dbt deps --profiles-dir .
-
-      - name: Debug DB_PORT
-        run: |
-          if [ -z "$DB_PORT" ]; then
-            echo "Error: DB_PORT secret is completely empty or missing!"
-            exit 1
-          else
-            echo "Success: DB_PORT is set"
-          fi
+        
       - name: Parse dbt project
         run: dbt parse --profiles-dir .
