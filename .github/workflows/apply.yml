@@ -53,12 +53,13 @@ jobs:
           pip install 'elementary-data[postgres]'
 
       - name: Install dbt dependencies
-        run: dbt deps --profiles-dir .
+        run: dbt deps --project-dir dbt --profiles-dir dbt
+        
 
       - name: Build dbt project
         run: |
-          dbt run --select elementary --target prod --profiles-dir .
-          dbt build --target prod --profiles-dir .
+          dbt run --select elementary --target prod --project-dir dbt --profiles-dir dbt
+          dbt build --target prod --project-dir dbt --profiles-dir dbt
 
       - name: Generate and Send Elementary Report
         if: always()
@@ -66,6 +67,6 @@ jobs:
           edr send-report \
             --slack-token ${{ secrets.SLACK_TOKEN }} \
             --slack-channel-name ${{ secrets.SLACK_CHANNEL_NAME }} \
-            --profiles-dir . \
-            --project-dir .
+            --profiles-dir dbt \
+            --project-dir dbt
 
