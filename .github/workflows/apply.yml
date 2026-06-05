@@ -30,8 +30,11 @@ jobs:
         uses: docker://flyway/flyway:12.6.2
         env:
           DB_URL: ${{ secrets.DB_URL }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         with:
-          args: migrate
+          args: -configFiles=migrations/flyway.conf -locations=filesystem:./migrations migrate
+
 
   dbt-build:
     name: Build Models and Test Data
