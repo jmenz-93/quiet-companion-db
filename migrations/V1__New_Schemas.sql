@@ -1,1 +1,1 @@
-CREATE SCHEMA IF NOT EXISTS flyway;
+CREATE SCHEMA IF NOT EXISTS quiet_companion.flyway;
