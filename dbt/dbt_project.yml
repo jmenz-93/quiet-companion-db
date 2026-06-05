@@ -33,4 +33,4 @@ models:
 
 seeds:
   quiet_companion:
-    schema: seeds
+    schema: seed
