@@ -1,2 +1,2 @@
 sqlfluff==4.2.1
-dbt-core==1.11.11sour
+dbt-core==1.11.11
