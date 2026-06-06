@@ -1,4 +1,4 @@
-name: Apply Database Scripts
+name: Apply Flyway and Run dbt
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
 
 
   dbt-build:
-    name: Build Models and Test Data
+    name: Build dbt Models
     needs: migrate
     runs-on: ubuntu-latest
 
@@ -64,6 +64,12 @@ jobs:
           dbt run --select elementary --target prod --project-dir dbt --profiles-dir dbt
           dbt build --target prod --project-dir dbt --profiles-dir dbt
 
+  elementary-report:
+    name: Send Elementary Report
+    needs: dbt-build
+    runs-on: ubuntu-latest
+      
+    steps:
       - name: Generate and Send Elementary Report
         if: always()
         run: |
@@ -71,5 +77,5 @@ jobs:
             --slack-token ${{ secrets.SLACK_TOKEN }} \
             --slack-channel-name ${{ secrets.SLACK_CHANNEL_NAME }} \
             --profiles-dir dbt \
-            --project-dir dbt
-
+            --project-dir dbt   
+              

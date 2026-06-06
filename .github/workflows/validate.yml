@@ -1,4 +1,4 @@
-name: Code Quality
+name: Validate SQL Fluff and dbt
 
 on:
   push:
