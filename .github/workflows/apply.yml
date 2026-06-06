@@ -61,7 +61,6 @@ jobs:
 
       - name: Build dbt project
         run: |
-          dbt run --select elementary --target prod --project-dir dbt --profiles-dir dbt
           dbt build --target prod --project-dir dbt --profiles-dir dbt
 
   elementary-report:
@@ -70,6 +69,22 @@ jobs:
     runs-on: ubuntu-latest
       
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Elementary
+        run: |
+          pip install 'elementary-data[postgres]'
+
+      - name: Run Elementary models
+        run: |
+          dbt run --select elementary --target prod --project-dir dbt --profiles-dir dbt
+
       - name: Generate and Send Elementary Report
         if: always()
         run: |
@@ -78,4 +93,4 @@ jobs:
             --slack-channel-name ${{ secrets.SLACK_CHANNEL_NAME }} \
             --profiles-dir dbt \
             --project-dir dbt   
-              
+
