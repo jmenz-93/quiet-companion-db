@@ -78,8 +78,7 @@ jobs:
 
       - name: Install dbt and Elementary
         run: |
-          pip install dbt-postgres
-          pip install 'elementary-data[postgres]'
+          pip install -r requirements.txt
 
       - name: Install dbt dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
