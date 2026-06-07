@@ -1,4 +1,3 @@
 dbt-core==1.9.1
 dbt-postgres==1.9.1
-elementary-data[postgres]
-sqlfluff
+sqlfluff==4.2.1
