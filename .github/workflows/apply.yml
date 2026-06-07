@@ -51,8 +51,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dbt
-        run: |
-          pip install dbt-postgres
+        run: pip install -r requirements.txt
 
       - name: Install dbt dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
@@ -77,8 +76,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dbt and Elementary
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Install dbt dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
