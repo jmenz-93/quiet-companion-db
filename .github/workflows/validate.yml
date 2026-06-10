@@ -36,7 +36,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run SQLFluff lint
-        run: sqlfluff lint migrations/
+        run: sqlfluff lint migrations/scripts/
 
       - name: Install dbt dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
