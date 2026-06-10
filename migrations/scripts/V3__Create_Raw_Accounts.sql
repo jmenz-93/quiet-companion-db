@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS raw_accounts (
+CREATE TABLE IF NOT EXISTS raw.raw_accounts (
     effective_date TEXT,
     account_number TEXT,
     ssn TEXT,
