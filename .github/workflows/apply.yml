@@ -33,7 +33,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         with:
-          args: -configFiles=migrations/flyway.conf -locations=filesystem:./migrations migrate
+          args: -configFiles=migrations/flyway.conf -locations=filesystem:./migrations/scripts migrate
 
 
   dbt-build:
