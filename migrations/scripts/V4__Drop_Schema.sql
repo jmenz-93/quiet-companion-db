@@ -1,1 +1,1 @@
-DROP SCHEMA IF EXISTS quiet_companion CASCADE;
+DROP SCHEMA IF EXISTS quiet_companion.public CASCADE;
