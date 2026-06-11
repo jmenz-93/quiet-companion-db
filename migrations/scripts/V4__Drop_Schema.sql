@@ -1,0 +1,1 @@
+DROP SCHEMA IF EXISTS quiet_companion CASCADE;
