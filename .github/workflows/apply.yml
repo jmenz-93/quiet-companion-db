@@ -5,7 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+  repository_dispatch:
+    types: [run-apply]
+    
 permissions:
   contents: read
 
