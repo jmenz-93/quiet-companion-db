@@ -72,6 +72,11 @@ jobs:
   elementary-report:
     name: Send Elementary Report
     needs: dbt-build
+    if: |
+      always() && 
+      needs.dbt-build.result != 'skipped' && 
+      needs.dbt-build.result != 'cancelled'
+      
     runs-on: ubuntu-latest
       
     steps:
