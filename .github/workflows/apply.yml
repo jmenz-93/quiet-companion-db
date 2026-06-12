@@ -22,7 +22,7 @@ env:
 jobs:
   migrate:
     name: Run Flyway Migrations
-    if: github.event_name != 'repository_dispatch'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     
     steps:
@@ -42,6 +42,11 @@ jobs:
   dbt-build:
     name: Build dbt Models
     needs: migrate
+    if: |
+      always() && 
+      needs.migrate.result != 'failure' && 
+      needs.migrate.result != 'cancelled'
+  
     runs-on: ubuntu-latest
 
     steps:
