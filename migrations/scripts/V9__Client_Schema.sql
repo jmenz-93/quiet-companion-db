@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS raw.raw_client (
+    effective_date TEXT,
     account_number TEXT,
     ssn TEXT,
     first_name TEXT,
