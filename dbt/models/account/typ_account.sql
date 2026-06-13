@@ -26,7 +26,8 @@ SELECT
     raw_accounts.options_approved,
     raw_accounts.beneficiary_designated,
     raw_accounts.esg_preference,
-    raw_accounts.raw_created_timestamp
+    raw_accounts.raw_created_timestamp,
+    CURRENT_TIMESTAMP AS typ_created_timestamp
 FROM {{ source('quiet_companion', 'raw_accounts') }} AS raw_accounts
 {% if is_incremental() %}
     WHERE CAST(raw_accounts.effective_date AS DATE) >= (SELECT MAX(a.effective_date) FROM {{ this }} AS a)
