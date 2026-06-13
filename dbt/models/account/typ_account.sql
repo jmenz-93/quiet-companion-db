@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key='account_number'
+    unique_key=['account_number', 'raw_created_timestamp']
 ) }}
 
 SELECT
@@ -30,5 +30,5 @@ SELECT
     CURRENT_TIMESTAMP AS typ_created_timestamp
 FROM {{ source('quiet_companion', 'raw_accounts') }} AS raw_accounts
 {% if is_incremental() %}
-    WHERE CAST(raw_accounts.effective_date AS DATE) >= (SELECT MAX(a.effective_date) FROM {{ this }} AS a)
+    WHERE raw_accounts.raw_created_timestamp >= (SELECT MAX(a.raw_created_timestamp) FROM {{ this }} AS a)
 {% endif %}
