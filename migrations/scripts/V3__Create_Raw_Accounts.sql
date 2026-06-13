@@ -24,5 +24,6 @@ CREATE TABLE IF NOT EXISTS raw.raw_accounts (
     options_approved TEXT,
     beneficiary_designated TEXT,
     esg_preference TEXT,
-    raw_created_timestamp TIMESTAMP
+    raw_created_timestamp TIMESTAMP,
+    PRIMARY KEY (account_number, ssn)
 );
