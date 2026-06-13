@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: quiet_companion
+    schema: raw
+    tables:
+      - name: raw_accounts
+        description: "Raw accounts data from the AI API."
+        columns:
+          - name: effective_date
+            tests:
+              - not_null
+          - name: account_number
+            tests:
+              - not_null
+          - name: ssn
+            tests:
+              - not_null
+          - name: account_type
+            tests:
+              - not_null
+          - name: account_status
+            tests:
+              - not_null
+          - name: date_opened
+            tests:
+              - not_null
