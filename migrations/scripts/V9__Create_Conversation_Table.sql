@@ -1,5 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS conversation;
-
 CREATE TABLE conversation.conversation_history (
     message_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     conversation_id UUID NOT NULL,
