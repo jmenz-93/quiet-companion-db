@@ -44,3 +44,28 @@ sources:
           - name: date_of_birth
             data_tests:
               - not_null
+      - name: raw_client_address
+        description: "Raw client address data"
+        columns:
+          - name: effective_date
+            data_tests:
+              - not_null
+          - name: ssn
+            data_tests:
+              - not_null
+              - unique
+          - name: address_line_1
+            data_tests:
+              - not_null
+          - name: address_line_2
+            data_tests:
+              - not_null
+          - name: city
+            data_tests:
+              - not_null
+          - name: state
+            data_tests:
+              - not_null
+          - name: zip_code
+            data_tests:
+              - not_null
