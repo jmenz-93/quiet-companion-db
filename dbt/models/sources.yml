@@ -5,23 +5,45 @@ sources:
     schema: raw
     tables:
       - name: raw_accounts
-        description: "Raw accounts data from the AI API."
+        description: "Raw accounts data"
         columns:
           - name: effective_date
-            tests:
+            data_tests:
               - not_null
           - name: account_number
-            tests:
+            data_tests:
               - not_null
           - name: ssn
-            tests:
+            data_tests:
               - not_null
           - name: account_type
-            tests:
+            data_tests:
               - not_null
           - name: account_status
-            tests:
+            data_tests:
               - not_null
           - name: date_opened
-            tests:
+            data_tests:
+              - not_null
+      - name: raw_client
+        description: "Raw client information"
+        columns:
+          - name: effective_date
+            data_tests:
+              - not_null
+          - name: account_number
+            data_tests:
+              - not_null
+              - unique
+          - name: ssn
+            data_tests:
+              - not_null
+          - name: first_name
+            data_tests:
+              - not_null
+          - name: last_name
+            data_tests:
+              - not_null
+          - name: date_of_birth
+            data_tests:
               - not_null
