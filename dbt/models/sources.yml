@@ -5,7 +5,7 @@ sources:
     schema: raw
     tables:
       - name: raw_accounts
-        description: "Raw accounts data from the AI API."
+        description: "Raw accounts data"
         columns:
           - name: effective_date
             data_tests:
@@ -26,7 +26,7 @@ sources:
             data_tests:
               - not_null
       - name: raw_client
-        description: "Raw client information data from the AI API."
+        description: "Raw client information"
         columns:
           - name: effective_date
             data_tests:
