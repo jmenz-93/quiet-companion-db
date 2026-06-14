@@ -11,7 +11,7 @@ SELECT
     raw_client.last_name,
     CAST(raw_client.date_of_birth AS DATE) AS date_of_birth,
     raw_client.marital_status,
-    raw_client.number_of_dependents,
+    CAST(raw_client.number_of_dependents AS INTEGER) AS number_of_dependents,
     raw_client.email_address,
     raw_client.phone_number,
     raw_client.citizenship_status,
