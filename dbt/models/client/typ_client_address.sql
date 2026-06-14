@@ -1,6 +1,5 @@
 {{ config(
-    materialized='incremental',
-    unique_key=['ssn', 'raw_created_timestamp']
+    materialized='incremental'
 ) }}
 
 SELECT
