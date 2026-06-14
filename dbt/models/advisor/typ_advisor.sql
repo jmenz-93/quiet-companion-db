@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key=['ssn', 'raw_created_timestamp']
+    unique_key=['advisor_code', 'raw_created_timestamp']
 ) }}
 SELECT
     CAST(raw_advisor.effective_date AS DATE) AS effective_date,
