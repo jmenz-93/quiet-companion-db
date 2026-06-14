@@ -31,13 +31,10 @@ sources:
           - name: effective_date
             data_tests:
               - not_null
-          - name: account_number
-            data_tests:
-              - not_null
-              - unique
           - name: ssn
             data_tests:
               - not_null
+              - unique
           - name: first_name
             data_tests:
               - not_null
