@@ -1,11 +1,10 @@
 {{ config(
     materialized='incremental',
-    unique_key=['account_number', 'raw_created_timestamp']
+    unique_key=['ssn', 'raw_created_timestamp']
 ) }}
 
 SELECT
     CAST(raw_client.effective_date AS DATE) AS effective_date,
-    raw_client.account_number,
     raw_client.ssn,
     raw_client.first_name,
     raw_client.last_name,
