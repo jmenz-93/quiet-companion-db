@@ -10,7 +10,7 @@ CREATE TABLE quiet_companion.raw.raw_trades (
     asset_class TEXT,
     ticker TEXT,
     security_name TEXT,
-    action TEXT,
+    "action" TEXT,
     quantity TEXT,
     price TEXT,
     gross_amount TEXT,
