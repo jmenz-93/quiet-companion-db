@@ -16,6 +16,7 @@ CREATE TABLE quiet_companion.raw.raw_trades (
     gross_amount TEXT,
     commission TEXT,
     net_amount TEXT,
+    cash_flow_direction TEXT,
     currency TEXT,
     trade_status TEXT,
     order_type TEXT,
