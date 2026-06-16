@@ -22,6 +22,5 @@ CREATE TABLE quiet_companion.raw.raw_trades (
     order_type TEXT,
     account_type TEXT,
     tax_status TEXT,
-    notes TEXT,
     raw_created_timestamp TIMESTAMP
 );
