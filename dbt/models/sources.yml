@@ -151,18 +151,9 @@ sources:
               - not_null:
                   config:
                     severity: error
-          - name: security
-            data_tests:
-              - not_null
           - name: quantity
             data_tests:
               - not_null
           - name: price
-            data_tests:
-              - not_null
-          - name: trade_amount
-            data_tests:
-              - not_null
-          - name: trade_type
             data_tests:
               - not_null
