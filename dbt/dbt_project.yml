@@ -24,10 +24,6 @@ models:
       +schema: advisor
     client:
       +schema: client
-    holdings:
-      +schema: holdings
-    transactions:
-      +schema: transactions
   elementary:
     +schema: elementary
 
