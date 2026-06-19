@@ -1,18 +1,21 @@
 {{ config(
-    materialized='incremental'
+    materialized='table'
 ) }}
 SELECT
-    CAST(raw_advisor.effective_date AS DATE) AS effective_date,
-    raw_advisor.advisor_code,
-    raw_advisor.advisor_name,
-    raw_advisor.title,
-    raw_advisor.credentials,
-    raw_advisor.phone_number,
-    raw_advisor.specialization,
-    raw_advisor.advisor_status,
-    raw_advisor.raw_created_timestamp,
+    advisors.advisor_code,
+    advisors.advisor_name,
+    advisors.title,
+    advisors.credentials,
+    advisors.license_series,
+    advisors.hire_date,
+    advisors.years_in_industry,
+    advisors.branch_name,
+    advisors.office_city,
+    advisors.office_state,
+    advisors.email_address,
+    advisors.phone_number,
+    advisors.specialization,
+    advisors.advisor_status,
     CURRENT_TIMESTAMP AS typ_created_timestamp
-FROM {{ source('quiet_companion', 'raw_advisor') }} AS raw_advisor
-{% if is_incremental() %}
-    WHERE raw_advisor.raw_created_timestamp >= (SELECT MAX(a.raw_created_timestamp) FROM {{ this }} AS a)
-{% endif %}
+FROM {{ ref('advisors') }} AS advisors
+
