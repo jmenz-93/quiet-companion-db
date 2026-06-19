@@ -15,7 +15,6 @@ SELECT
     t.date_closed,
     t.last_review_date,
     t.custodian,
-    t.advisor_name,
     t.advisor_code,
     t.investment_objective,
     t.risk_profile,
