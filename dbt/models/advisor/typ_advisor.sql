@@ -18,4 +18,3 @@ SELECT
     advisors.advisor_status,
     CURRENT_TIMESTAMP AS typ_created_timestamp
 FROM {{ ref('advisors') }} AS advisors
-
