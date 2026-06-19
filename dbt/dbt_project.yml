@@ -15,6 +15,7 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+# Schemas for models and seeds
 models:
   quiet_companion:
     +materialized: view
@@ -24,6 +25,8 @@ models:
       +schema: advisor
     client:
       +schema: client
+    investment:
+      +schema: investment
   elementary:
     +schema: elementary
 
