@@ -19,7 +19,6 @@ SELECT
     t.investment_objective,
     t.risk_profile,
     t.time_horizon,
-    t.tax_status,
     t.rebalance_frequency,
     t.annual_contribution,
     t.management_fee,
