@@ -17,6 +17,5 @@ SELECT
     t.phone_number,
     t.specialization,
     t.advisor_status,
-    t.raw_created_timestamp,
     t.typ_created_timestamp
 FROM {{ref('typ_advisor')}} AS t

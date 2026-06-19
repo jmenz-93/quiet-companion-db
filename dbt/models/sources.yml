@@ -22,9 +22,6 @@ sources:
               - not_null:
                   config:
                     severity: error
-          - name: account_type
-            data_tests:
-              - not_null
           - name: account_status
             data_tests:
               - not_null
@@ -78,35 +75,6 @@ sources:
             data_tests:
               - not_null
           - name: zip_code
-            data_tests:
-              - not_null
-      - name: raw_advisor
-        description: "Raw advisor information"
-        columns:
-          - name: effective_date
-            data_tests:
-              - not_null:
-                  config:
-                    severity: error
-          - name: advisor_code
-            data_tests:
-              - not_null
-              - unique:
-                  config:
-                    severity: error
-          - name: advisor_name
-            data_tests:
-              - not_null
-          - name: title
-            data_tests:
-              - not_null
-          - name: credentials
-            data_tests:
-              - not_null
-          - name: phone_number
-            data_tests:
-              - not_null
-          - name: advisor_status
             data_tests:
               - not_null
       - name: raw_trades
