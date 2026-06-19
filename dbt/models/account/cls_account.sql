@@ -9,7 +9,8 @@ SELECT
     t.effective_date,
     t.account_number,
     t.ssn,
-    t.product_id,
+    p.product_name,
+    p.tax_status,
     t.account_status,
     t.date_opened,
     t.date_closed,
@@ -19,7 +20,6 @@ SELECT
     t.investment_objective,
     t.risk_profile,
     t.time_horizon,
-    t.tax_status,
     t.rebalance_frequency,
     t.annual_contribution,
     t.management_fee,
@@ -30,6 +30,10 @@ SELECT
     t.raw_created_timestamp,
     t.typ_created_timestamp
 FROM {{ref('typ_account')}} AS t
-{% if is_incremental() %}
-    WHERE t.typ_created_timestamp > (SELECT max(t2.typ_created_timestamp) FROM {{ this }} AS t2)
-{% endif %}
+LEFT JOIN {{ref("cls_products")}} AS p
+    ON t.product_id = p.product_id
+WHERE
+    p.product_id IS NOT NULL
+    {% if is_incremental() %}
+        AND t.typ_created_timestamp > (SELECT max(t2.typ_created_timestamp) FROM {{ this }} AS t2)
+    {% endif %}

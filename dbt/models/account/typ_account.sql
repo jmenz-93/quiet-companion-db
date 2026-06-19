@@ -16,7 +16,6 @@ SELECT
     raw_accounts.investment_objective,
     raw_accounts.risk_profile,
     raw_accounts.time_horizon,
-    raw_accounts.tax_status,
     raw_accounts.rebalance_frequency,
     CAST(NULLIF(TRIM(raw_accounts.annual_contribution), '') AS NUMERIC(12, 2)) AS annual_contribution,
     CAST(NULLIF(TRIM(raw_accounts.management_fee), '') AS NUMERIC(5, 4)) AS management_fee,
