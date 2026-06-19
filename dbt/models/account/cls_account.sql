@@ -9,7 +9,7 @@ SELECT
     t.effective_date,
     t.account_number,
     t.ssn,
-    t.account_type,
+    t.product_id,
     t.account_status,
     t.date_opened,
     t.date_closed,
