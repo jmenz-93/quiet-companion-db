@@ -12,7 +12,6 @@ SELECT
     CAST(raw_accounts.date_closed AS DATE) AS date_closed,
     CAST(raw_accounts.last_review_date AS DATE) AS last_review_date,
     raw_accounts.custodian,
-    raw_accounts.advisor_name,
     raw_accounts.advisor_code,
     raw_accounts.investment_objective,
     raw_accounts.risk_profile,
