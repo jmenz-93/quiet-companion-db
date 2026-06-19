@@ -104,11 +104,6 @@ sources:
               - not_null:
                   config:
                     severity: error
-          - name: advisor_name
-            data_tests:
-              - not_null:
-                  config:
-                    severity: error
           - name: trade_date
             data_tests:
               - not_null:

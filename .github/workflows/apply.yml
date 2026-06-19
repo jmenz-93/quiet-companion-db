@@ -72,7 +72,9 @@ jobs:
   elementary-report:
     name: Send Elementary Report
     needs: dbt-build
-    if: ${{ needs.dbt-build.result == 'success' }}
+    if: |
+      always() &&
+      needs.dbt-build.result == 'success'
       
     runs-on: ubuntu-latest
       
