@@ -74,7 +74,9 @@ jobs:
     needs: dbt-build
     if: |
       always() &&
-      needs.dbt-build.result == 'success'
+      needs.dbt-build.result == 'success' &&
+      github.event_name == 'repository_dispatch' &&
+      github.event.action == 'run-dbt'
       
     runs-on: ubuntu-latest
       
