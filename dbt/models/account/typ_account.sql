@@ -6,7 +6,7 @@ SELECT
     CAST(raw_accounts.effective_date AS DATE) AS effective_date,
     raw_accounts.account_number,
     raw_accounts.ssn,
-    raw_accounts.account_type,
+    raw_accounts.product_id,
     raw_accounts.account_status,
     CAST(raw_accounts.date_opened AS DATE) AS date_opened,
     CAST(raw_accounts.date_closed AS DATE) AS date_closed,

@@ -5,7 +5,6 @@ SELECT
     CAST(products.product_id AS int) AS product_id,
     products.product_code,
     products.product_name,
-    products.product_type,
     products.product_category,
     products.tax_treatment,
     products.tax_status,
