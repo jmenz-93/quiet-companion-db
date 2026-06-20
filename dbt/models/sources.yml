@@ -120,3 +120,5 @@ sources:
           - name: price
             data_tests:
               - not_null
+      - name: raw_trades
+        description: "Raw trade data"
