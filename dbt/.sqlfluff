@@ -5,5 +5,5 @@ dialect = postgres
 [sqlfluff:templater:dbt]
 project_dir = dbt
 profiles_dir = dbt
-profile = default
+profile = quiet_companion
 target = prod
