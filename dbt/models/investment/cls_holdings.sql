@@ -27,7 +27,7 @@ WITH positions AS (
         SUM(CASE WHEN action = 'Capital Gain Distribution' THEN net_amount ELSE 0 END) AS capital_gain_distributions,
         SUM(CASE WHEN action IN ('Sell', 'Rebalance Sell') THEN net_amount ELSE 0 END) AS realized_proceeds
     FROM {{ ref('cls_trades') }}
-    GROUP BY account_number, ssn, product_id, ticker
+    GROUP BY account_number, ssn, ticker
 )
 
 SELECT
