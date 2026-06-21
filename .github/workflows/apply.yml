@@ -57,7 +57,7 @@ jobs:
           dbt build --target prod --project-dir dbt --profiles-dir dbt
 
   dbt-full-refresh:
-    name: dbt Full Refresh
+    name: dbt Full Refresh (Warning - Will drop and recreate models)
     needs: dbt-build
     if: failure() && needs.dbt-build.result == 'failure' && github.event_name == 'push'
     runs-on: ubuntu-latest
