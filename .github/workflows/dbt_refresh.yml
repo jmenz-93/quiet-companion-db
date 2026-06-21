@@ -5,6 +5,9 @@ name: dbt Full Refresh
 on: 
     workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
     dbt-refresh:
         runs-on: ubuntu-latest
