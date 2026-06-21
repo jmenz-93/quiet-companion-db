@@ -14,11 +14,8 @@ SELECT
     trades.trade_date,
     trades.settlement_date,
     trades.ticker,
-    products.security_name,
-    products.security_category,
     trades.action,
     trades.quantity,
-    products.asset_class,
     trades.price,
     trades.commission,
     trades.net_amount,
@@ -28,7 +25,6 @@ SELECT
     trades.raw_created_timestamp,
     trades.typ_created_timestamp
 FROM {{ref('typ_trades')}} AS trades
-LEFT JOIN {{ref('cls_products')}} AS products ON trades.product_id = products.product_id
 WHERE
     trades.trade_id IS NOT NULL
     {% if is_incremental() %}
