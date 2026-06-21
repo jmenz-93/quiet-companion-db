@@ -1,0 +1,27 @@
+name: dbt Full Refresh
+
+# If needed, this workflow allows you to trigger a full refresh on models. Do not use this for normal runs!!
+
+on: 
+    workflow_dispatch:
+
+jobs:
+    dbt-refresh:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: '3.11'
+
+            - name: Install dbt
+              run: pip install -r requirements.txt
+
+            - name: Install dbt dependencies
+              run: dbt deps --project-dir dbt --profiles-dir dbt
+
+            - name: Run dbt full refresh
+              run: dbt run --full-refresh --project-dir dbt --profiles-dir dbt
