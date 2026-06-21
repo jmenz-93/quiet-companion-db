@@ -3,18 +3,15 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      full_refresh:
-        description: 'Force Full Refresh of dbt Models'
-        required: false
-        type: boolean
-        default: false
+  workflow_dispatch: {}
   repository_dispatch:
     types: [run-dbt]
 
 permissions:
   contents: read
+concurrency:
+  group: production-dbt
+  cancel-in-progress: false
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   DB_PORT: ${{ secrets.DB_PORT }}
@@ -25,9 +22,8 @@ env:
 jobs:
   migrate:
     name: Run Flyway Migrations
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -59,17 +55,36 @@ jobs:
 
       - name: Build dbt project
         run: |
-          dbt build --target prod --project-dir dbt --profiles-dir dbt \
-            ${{ github.event.inputs.full_refresh == 'true' && '--full-refresh' || '' }}
+          dbt build --target prod --project-dir dbt --profiles-dir dbt
+
+  dbt-full-refresh:
+    name: dbt Full Refresh
+    needs: dbt-build
+    if: failure() && needs.dbt-build.result == 'failure' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: dbt-full-refresh
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dbt
+        run: pip install -r requirements.txt
+      - name: Install dbt dependencies
+        run: dbt deps --project-dir dbt --profiles-dir dbt
+      - name: Full refresh dbt project
+        run: |
+          dbt build --target prod --project-dir dbt --profiles-dir dbt --full-refresh
 
   elementary-report:
     name: Send Elementary Report
-    needs: dbt-build
+    needs: [dbt-build, dbt-full-refresh]
     if: |
-      always() &&
-      needs.dbt-build.result == 'success' &&
       github.event_name == 'repository_dispatch' &&
-      github.event.action == 'run-dbt'
+      github.event.action == 'run-dbt' &&
+      (needs.dbt-build.result == 'success' || needs.dbt-full-refresh.result == 'success')
 
     runs-on: ubuntu-latest
 
