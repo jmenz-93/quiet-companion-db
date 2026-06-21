@@ -7,6 +7,7 @@ SELECT
     CAST(raw_trades.effective_date AS date) AS effective_date,
     raw_trades.trade_id,
     raw_trades.account_number,
+    raw_trades.product_id,
     raw_trades.ssn,
     raw_trades.advisor_code,
     CAST(raw_trades.trade_date AS date) AS trade_date,
