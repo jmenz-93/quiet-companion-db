@@ -10,6 +10,7 @@ SELECT
     t.account_number,
     t.ssn,
     p.product_name,
+    p.product_category,
     p.tax_status,
     t.account_status,
     t.date_opened,
