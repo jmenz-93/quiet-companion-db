@@ -65,4 +65,4 @@ SELECT
     END AS average_cost_per_share,
     (dividend_income + interest_income + capital_gain_distributions) AS total_income
 FROM positions
-WHERE shares_owned > 0;
+WHERE shares_owned > 0
