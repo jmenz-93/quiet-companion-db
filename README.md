@@ -15,13 +15,19 @@
 
 ### Installation
 
-1. **Clone the repo**
+1. **Clone the Repo**
    ```bash
    git clone <repository-url>
    cd quiet-companion
    ```
 
-2. **Install Python Dependencies**
+2. **Create a Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install Python Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
