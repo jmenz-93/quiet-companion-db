@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
-      - name: Run Flyway migrations
+      - name: Run Flyway Migrations
         uses: docker://flyway/flyway:12.6.2
         env:
           DB_URL: ${{ secrets.DB_URL }}
@@ -49,15 +49,15 @@ jobs:
           python-version: '3.11'
       - name: Install dbt
         run: pip install -r requirements.txt
-      - name: Install dbt dependencies
+      - name: Install dbt Dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
 
-      - name: Build dbt project
+      - name: Build dbt Project
         run: |
           dbt build --target prod --project-dir dbt --profiles-dir dbt
 
   dbt-full-refresh:
-    name: dbt Full Refresh (Warning - Will drop and recreate models)
+    name: dbt Full Refresh (Warning!! Last Resort)
     needs: dbt-build
     if: failure() && needs.dbt-build.result == 'failure' && github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -71,9 +71,9 @@ jobs:
           python-version: '3.11'
       - name: Install dbt
         run: pip install -r requirements.txt
-      - name: Install dbt dependencies
+      - name: Install dbt Dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
-      - name: Full refresh dbt project
+      - name: Full refresh dbt Project
         run: |
           dbt build --target prod --project-dir dbt --profiles-dir dbt --full-refresh
 
@@ -96,9 +96,9 @@ jobs:
           python-version: '3.11'
       - name: Install dbt and Elementary
         run: pip install -r requirements.txt
-      - name: Install dbt dependencies
+      - name: Install dbt Dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
-      - name: Run Elementary models
+      - name: Run Elementary Models
         run: |
           dbt run --select elementary --target prod --project-dir dbt --profiles-dir dbt
       - name: Generate and Send Elementary Report
