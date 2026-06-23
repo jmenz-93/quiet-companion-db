@@ -1,4 +1,4 @@
-name: Validate SQL Fluff and dbt
+name: Validate SQL Fluff and dbt Models
 
 on:
   push:
@@ -19,7 +19,7 @@ env:
 
 jobs:
   lint-and-dbt:
-    name: Lint and Compile Code
+    name: Lint and Compile dbt Models
     runs-on: ubuntu-latest
     
     steps:
@@ -34,14 +34,14 @@ jobs:
       - name: Install SQLFluff and dbt
         run: pip install -r requirements.txt
 
-      - name: Install dbt dependencies
+      - name: Install dbt Dependencies
         run: dbt deps --project-dir dbt --profiles-dir dbt
 
-      - name: Run SQLFluff lint on Flyway migrations
+      - name: Run SQLFluff Lint on Flyway Migrations
         run: sqlfluff lint migrations/scripts/
 
-      - name: Run SQLFluff lint on dbt Models
+      - name: Run SQLFluff Lint on dbt Models
         run: sqlfluff lint dbt/models/
 
-      - name: Compile dbt models to Check for Syntax Errors
+      - name: Compile dbt Models to Check for Syntax Errors
         run: dbt compile --project-dir dbt --profiles-dir dbt
