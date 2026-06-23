@@ -10,7 +10,7 @@
 ## Local Setup
 
 ### Prerequisites
-- Python 3.11 or higher
+- Python 3.11 or Higher
 - pip
 
 ### Installation
