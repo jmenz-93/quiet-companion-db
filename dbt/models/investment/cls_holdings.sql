@@ -50,6 +50,6 @@ SELECT
 FROM positions
 WHERE
     shares_owned > 0
-{% if is_incremental() %}
+    {% if is_incremental() %}
         AND effective_date > (SELECT MAX(h2.effective_date) FROM {{ this }} AS h2)
-{% endif %}
+    {% endif %}
