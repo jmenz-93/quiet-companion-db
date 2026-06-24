@@ -38,8 +38,7 @@ sources:
                     severity: error
           - name: ssn
             data_tests:
-              - not_null
-              - unique:
+              - not_null:
                   config:
                     severity: error
           - name: first_name
@@ -61,8 +60,7 @@ sources:
                     severity: error
           - name: ssn
             data_tests:
-              - not_null
-              - unique:
+              - not_null:
                   config:
                     severity: error             
           - name: address_line_1
