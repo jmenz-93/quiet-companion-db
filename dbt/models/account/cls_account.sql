@@ -39,5 +39,5 @@ LEFT JOIN {{ref("cls_products")}} AS p
 WHERE
     p.product_id IS NOT NULL
     {% if is_incremental() %}
-        AND t.typ_created_timestamp > (SELECT max(t2.typ_created_timestamp) FROM {{ this }} AS t2)
+        AND t.effective_date > (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
     {% endif %}
