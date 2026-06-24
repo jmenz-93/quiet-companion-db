@@ -79,11 +79,10 @@ jobs:
 
   elementary-report:
     name: Send Elementary Report
-    needs: [dbt-build, dbt-full-refresh]
+    needs: [dbt-build]
     if: |
       github.event_name == 'repository_dispatch' &&
-      github.event.action == 'run-dbt' &&
-      (needs.dbt-build.result == 'success' || needs.dbt-full-refresh.result == 'success')
+      github.event.action == 'run-dbt' && needs.dbt-build.result == 'success'
 
     runs-on: ubuntu-latest
 
