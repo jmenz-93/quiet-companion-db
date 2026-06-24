@@ -28,5 +28,5 @@ FROM {{ref('typ_trades')}} AS trades
 WHERE
     trades.trade_id IS NOT NULL
     {% if is_incremental() %}
-        AND trades.typ_created_timestamp > (SELECT max(t2.typ_created_timestamp) FROM {{ this }} AS t2)
+        AND trades.effective_date > (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
     {% endif %}

@@ -30,5 +30,5 @@ SELECT
     t.typ_created_timestamp
 FROM {{ref('typ_client')}} AS t
 {% if is_incremental() %}
-    WHERE t.typ_created_timestamp > (SELECT max(t2.typ_created_timestamp) FROM {{ this }} AS t2)
+    WHERE t.effective_date > (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
 {% endif %}
