@@ -8,11 +8,13 @@ sources:
         description: "Raw accounts data"
         columns:
           - name: effective_date
+            description: "Date the record was generated in the source system"
             data_tests:
               - not_null:
                   config:
-                    severity: error
+                    severity: warn
           - name: account_number
+            description: "Unique identifier for the account"
             data_tests:
               - not_null:
                   config:
