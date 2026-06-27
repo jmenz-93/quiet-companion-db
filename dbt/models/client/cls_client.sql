@@ -35,7 +35,7 @@ WITH ranked AS (
         ) AS row_num
     FROM {{ref('typ_client')}} AS t
     {% if is_incremental() %}
-        WHERE t.effective_date >= (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
+        WHERE t.effective_date >= (SELECT MAX(t2.effective_date) FROM {{ this }} AS t2)
     {% endif %}
 )
 
