@@ -1,5 +1,7 @@
 {{ config(
     materialized='incremental',
+    incremental_strategy='merge',
+    unique_key=['ssn', 'effective_date', 'raw_created_timestamp'],
     on_schema_change='sync_all_columns'
 ) }}
 

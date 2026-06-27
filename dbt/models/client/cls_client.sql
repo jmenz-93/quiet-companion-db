@@ -5,30 +5,62 @@
     on_schema_change='sync_all_columns'
 )}}
 
+WITH ranked AS (
+    SELECT
+        t.effective_date,
+        t.ssn,
+        t.first_name,
+        t.last_name,
+        t.date_of_birth,
+        t.marital_status,
+        t.number_of_dependents,
+        t.email_address,
+        t.phone_number,
+        t.citizenship_status,
+        t.employment_status,
+        t.occupation,
+        t.employer_name,
+        t.annual_income_bracket,
+        t.estimated_net_worth_bracket,
+        t.education_level,
+        t.politically_exposed_person,
+        t.finra_association,
+        t.aml_flag,
+        t.preferred_contact_method,
+        t.raw_created_timestamp,
+        t.typ_created_timestamp,
+        ROW_NUMBER() OVER (
+            PARTITION BY t.ssn, t.effective_date
+            ORDER BY t.raw_created_timestamp DESC
+        ) AS row_num
+    FROM {{ref('typ_client')}} AS t
+    {% if is_incremental() %}
+        WHERE t.effective_date >= (SELECT MAX(t2.effective_date) FROM {{ this }} AS t2)
+    {% endif %}
+)
+
 SELECT
-    t.effective_date,
-    t.ssn,
-    t.first_name,
-    t.last_name,
-    t.date_of_birth,
-    t.marital_status,
-    t.number_of_dependents,
-    t.email_address,
-    t.phone_number,
-    t.citizenship_status,
-    t.employment_status,
-    t.occupation,
-    t.employer_name,
-    t.annual_income_bracket,
-    t.estimated_net_worth_bracket,
-    t.education_level,
-    t.politically_exposed_person,
-    t.finra_association,
-    t.aml_flag,
-    t.preferred_contact_method,
-    t.raw_created_timestamp,
-    t.typ_created_timestamp
-FROM {{ref('typ_client')}} AS t
-{% if is_incremental() %}
-    WHERE t.effective_date >= (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
-{% endif %}
+    effective_date,
+    ssn,
+    first_name,
+    last_name,
+    date_of_birth,
+    marital_status,
+    number_of_dependents,
+    email_address,
+    phone_number,
+    citizenship_status,
+    employment_status,
+    occupation,
+    employer_name,
+    annual_income_bracket,
+    estimated_net_worth_bracket,
+    education_level,
+    politically_exposed_person,
+    finra_association,
+    aml_flag,
+    preferred_contact_method,
+    raw_created_timestamp,
+    typ_created_timestamp
+FROM ranked
+WHERE row_num = 1
