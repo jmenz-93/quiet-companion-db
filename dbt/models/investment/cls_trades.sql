@@ -30,3 +30,7 @@ WHERE
     {% if is_incremental() %}
         AND trades.effective_date >= (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
     {% endif %}
+QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY trades.trade_id, trades.effective_date
+    ORDER BY trades.raw_created_timestamp DESC
+) = 1

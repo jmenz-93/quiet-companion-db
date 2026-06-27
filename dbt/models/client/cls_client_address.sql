@@ -24,3 +24,4 @@ FROM {{ref('typ_client_address')}} AS t
 {% if is_incremental() %}
     WHERE t.effective_date >= (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
 {% endif %}
+QUALIFY ROW_NUMBER()

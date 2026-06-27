@@ -32,3 +32,7 @@ FROM {{ref('typ_client')}} AS t
 {% if is_incremental() %}
     WHERE t.effective_date >= (SELECT max(t2.effective_date) FROM {{ this }} AS t2)
 {% endif %}
+QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY t.ssn, t.effective_date
+    ORDER BY t.raw_created_timestamp DESC
+) = 1
