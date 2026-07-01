@@ -31,6 +31,6 @@ SELECT
     adv.specialization
 FROM latest_client c
 LEFT JOIN latest_address a ON c.ssn = a.ssn
-JOIN {{ ref('cls_accounts') }} acc ON c.ssn = acc.ssn
+JOIN {{ ref('cls_account') }} acc ON c.ssn = acc.ssn
 JOIN {{ ref('cls_products') }} p ON acc.product_id = p.product_id
 LEFT JOIN {{ ref('cls_advisor') }} adv ON acc.advisor_code = adv.advisor_code
