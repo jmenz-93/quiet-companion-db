@@ -38,7 +38,7 @@ SELECT
     adv.advisor_name,
     adv.specialization AS advisor_specialization
 FROM latest_client AS c
-LEFT JOIN latest_address AS a ON c.ssn = a.ssn
+LEFT JOIN latest_address AS cca ON c.ssn = cca.ssn
 INNER JOIN latest_account AS a ON c.ssn = a.ssn
 INNER JOIN {{ ref('cls_products') }} AS p ON a.product_id = p.product_id
 LEFT JOIN {{ ref('cls_advisor') }} AS adv ON a.advisor_code = adv.advisor_code
