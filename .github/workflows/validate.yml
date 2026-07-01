@@ -38,8 +38,8 @@ jobs:
         run: dbt deps --project-dir dbt --profiles-dir dbt
 
       - name: Run SQLFluff Lint on Flyway Migrations
-        run: sqlfluff lint migrations/scripts/ --config migrations/scripts/.sqlfluff-migrations
-
+        run: sqlfluff lint migrations/
+        
       - name: Run SQLFluff Lint on dbt Models
         run: sqlfluff lint dbt/models/
 
