@@ -27,6 +27,9 @@ models:
       +schema: client
     investment:
       +schema: investment
+    pre:
+      +schema: pre
+      materialized: view
   elementary:
     +schema: elementary
 
