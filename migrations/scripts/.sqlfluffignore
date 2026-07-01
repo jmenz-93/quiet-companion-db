@@ -1,4 +1,0 @@
-migrations/scripts/V1__New_Schemas.sql
-migrations/scripts/V8__Schemas_Vector_Table.sql
-migrations/scripts/V12__Trade_Schema.sql
-migrations/scripts/V16__Drop_Recreate.sql
