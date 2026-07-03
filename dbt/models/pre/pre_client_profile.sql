@@ -26,6 +26,7 @@ SELECT
     c.estimated_net_worth_bracket AS client_estimated_net_worth_bracket,
     c.email_address AS client_email_address,
     c.occupation AS client_occupation,
+    cca.address_line_1 AS client_address_line_1,
     cca.city AS client_city,
     cca.state AS client_state,
     cca.zip_code AS client_zip_code,
