@@ -1,9 +1,0 @@
-[sqlfluff]
-templater = dbt
-dialect = postgres
-
-[sqlfluff:templater:dbt]
-project_dir = dbt
-profiles_dir = dbt
-profile = quiet_companion
-target = prod
