@@ -1,4 +1,4 @@
-SELECT 
+SELECT
     advisor_code,
     advisor_name,
     title,
