@@ -44,7 +44,11 @@ WITH ranked AS (
     WHERE
         p.product_id IS NOT NULL
         {% if is_incremental() %}
-            AND t.effective_date >= (SELECT MAX(t2.effective_date) FROM {{ this }} AS t2)
+            AND t.account_number IN (
+                SELECT t2.account_number
+                FROM {{ ref('typ_account') }} AS t2
+                WHERE t2.effective_date >= (SELECT MAX(t3.effective_date) FROM {{ this }} AS t3)
+            )
         {% endif %}
 )
 
@@ -75,6 +79,7 @@ SELECT
     beneficiary_designated,
     esg_preference,
     raw_created_timestamp,
-    typ_created_timestamp
+    typ_created_timestamp,
+    (effective_date = MAX(effective_date) OVER (PARTITION BY account_number)) AS is_current
 FROM ranked
 WHERE row_num = 1

@@ -24,7 +24,11 @@ WITH ranked AS (
         ROW_NUMBER() OVER (PARTITION BY t.ssn, t.effective_date ORDER BY t.raw_created_timestamp DESC) AS row_num
     FROM {{ref('typ_client_address')}} AS t
     {% if is_incremental() %}
-        WHERE t.effective_date >= (SELECT MAX(t2.effective_date) FROM {{ this }} AS t2)
+        WHERE t.ssn IN (
+            SELECT t2.ssn
+            FROM {{ ref('typ_client_address') }} AS t2
+            WHERE t2.effective_date >= (SELECT MAX(t3.effective_date) FROM {{ this }} AS t3)
+        )
     {% endif %}
 )
 
@@ -42,6 +46,7 @@ SELECT
     residency_status,
     years_at_current_address,
     raw_created_timestamp,
-    typ_created_timestamp
+    typ_created_timestamp,
+    (effective_date = MAX(effective_date) OVER (PARTITION BY ssn)) AS is_current
 FROM ranked
 WHERE row_num = 1

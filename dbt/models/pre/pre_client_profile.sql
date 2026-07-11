@@ -35,10 +35,7 @@ SELECT
     a.risk_profile,
     a.investment_objective,
     a.product_name,
-    a.product_category,
-    adv.advisor_name,
-    adv.specialization AS advisor_specialization
+    a.product_category
 FROM latest_client AS c
 LEFT JOIN latest_address AS cca ON c.ssn = cca.ssn
 INNER JOIN latest_account AS a ON c.ssn = a.ssn
-LEFT JOIN {{ ref('cls_advisor') }} AS adv ON a.advisor_code = adv.advisor_code
