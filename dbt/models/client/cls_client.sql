@@ -66,6 +66,6 @@ SELECT
     preferred_contact_method,
     raw_created_timestamp,
     typ_created_timestamp,
-    (effective_date = MAX(effective_date) OVER (PARTITION BY ssn)) AS is_current
+    COALESCE((effective_date = MAX(effective_date) OVER (PARTITION BY ssn)), FALSE) AS is_current
 FROM ranked
 WHERE row_num = 1
