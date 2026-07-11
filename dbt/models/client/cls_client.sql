@@ -43,7 +43,7 @@ WITH ranked AS (
     {% endif %}
 )
 
-SELECT
+SELECT --noqa
     effective_date,
     ssn,
     first_name,
