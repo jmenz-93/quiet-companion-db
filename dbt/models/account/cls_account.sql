@@ -80,6 +80,6 @@ SELECT
     esg_preference,
     raw_created_timestamp,
     typ_created_timestamp,
-    (effective_date = MAX(effective_date) OVER (PARTITION BY account_number)) AS is_current
+    COALESCE((effective_date = MAX(effective_date) OVER (PARTITION BY account_number)), FALSE) AS is_current
 FROM ranked
 WHERE row_num = 1
