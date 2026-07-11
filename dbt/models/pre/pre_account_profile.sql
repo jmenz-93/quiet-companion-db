@@ -17,3 +17,4 @@ SELECT
     ca.esg_preference
 FROM {{ ref('cls_account') }} AS ca
 LEFT JOIN {{ ref('cls_advisor') }} AS ca2 ON ca.advisor_code = ca2.advisor_code
+WHERE ca.is_current = TRUE
