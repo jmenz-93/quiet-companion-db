@@ -49,6 +49,7 @@ SELECT
     first_name,
     last_name,
     date_of_birth,
+    EXTRACT(YEAR FROM AGE(effective_date, date_of_birth)) AS age,
     marital_status,
     number_of_dependents,
     email_address,
