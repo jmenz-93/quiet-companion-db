@@ -21,6 +21,18 @@ SELECT
     p.tax_treatment,
 
     -- structured match keys
+    p.purpose,
+    p.best_suited_for,
+    p.when_to_recommend,
+    p.key_benefits,
+    p.key_limitations,
+    p.contribution_limit_2026,
+    p.income_limit_2026,
+
+    -- descriptive fields carried through for explanation / LLM input
+    p.typical_time_horizon,
+    p.common_age_range,
+    p.risk_suitability,
     STRING_TO_ARRAY(p.risk_suitability, ', ') AS risk_profiles,
     (REGEXP_MATCH(p.common_age_range, '(\d+)\s*-\s*(\d+)'))[1]::int AS age_min,
     (REGEXP_MATCH(p.common_age_range, '(\d+)\s*-\s*(\d+)'))[2]::int AS age_max,
@@ -29,17 +41,5 @@ SELECT
     (REGEXP_MATCH(p.typical_time_horizon, '\((\d+)\s*-\s*(\d+)'))[2]::int AS horizon_years_max,
     REPLACE(
         (REGEXP_MATCH(p.income_limit_2026, 'Minimum \$([0-9,]+)'))[1], ',', ''
-    )::numeric AS min_investable_assets,
-
-    -- descriptive fields carried through for explanation / LLM input
-    p.purpose,
-    p.best_suited_for,
-    p.when_to_recommend,
-    p.key_benefits,
-    p.key_limitations,
-    p.contribution_limit_2026,
-    p.income_limit_2026,
-    p.typical_time_horizon,
-    p.common_age_range,
-    p.risk_suitability
+    )::numeric AS min_investable_assets
 FROM {{ ref('cls_products') }} AS p
