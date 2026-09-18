@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: pre_products
+    description: "Recommendation-ready product catalog: parsed structured match keys plus descriptive text. One row per product."
+    columns:
+      - name: product_id
+        data_tests:
+          - not_null
+          - unique
+      - name: risk_profiles
+        description: "Array of risk-profile tokens the product is suitable for."
+        data_tests:
+          - not_null
+      - name: age_min
+        data_tests:
+          - not_null
+      - name: age_max
+        data_tests:
+          - not_null
+      - name: horizon_years_min
+        data_tests:
+          - not_null
+      - name: horizon_years_max
+        data_tests:
+          - not_null
+
+  - name: pre_client_deid
+    description: "De-identified client feed for the LLM step (one row per client). No product matching — the LLM recommends against pre_products. ssn replaced by client_ref (hash of ssn); only non-identifying attributes exposed."
+    columns:
+      - name: client_ref
+        description: "Non-identifying surrogate = hash of ssn; rejoin to a client by re-hashing ssn."
+        data_tests:
+          - not_null
+          - unique
